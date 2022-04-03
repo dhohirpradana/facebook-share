@@ -24,26 +24,27 @@ export default function Home() {
     } else {
       setSpinner(true);
       for (let index = 0; index < count; index++) {
-        fetch(
-          `https://graph.facebook.com/me/feed?link=${targetLink}&published=false&access_token=${accessToken}&fields=id`,
-          {
-            method: "POST",
-          }
-        )
-          .then((response) => response.json())
-          .then((json) => {
-            setSpinner(null);
-            if (json.error) {
-              setError(json.error.message);
-              return;
-            } else {
-              setSuccess(index);
+        await setTimeout(() => {
+          fetch(
+            `https://graph.facebook.com/me/feed?link=${targetLink}&published=false&access_token=${accessToken}&fields=id`,
+            {
+              method: "POST",
             }
-          })
-          .catch((err) => {
-            setError(err);
-          });
-        await setTimeout(() => {}, delay * 1000);
+          )
+            .then((response) => response.json())
+            .then((json) => {
+              setSpinner(null);
+              if (json.error) {
+                setError(json.error.message);
+                return;
+              } else {
+                setSuccess(index);
+              }
+            })
+            .catch((err) => {
+              setError(err);
+            });
+        }, delay * 1000);
       }
       setSuccess(false);
     }
