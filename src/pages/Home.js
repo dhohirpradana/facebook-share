@@ -75,6 +75,7 @@ export default function Home() {
                 type="text"
                 name="accessToken"
                 placeholder="Enter access token"
+                required
               />
             </Form.Group>
           </div>
@@ -87,6 +88,7 @@ export default function Home() {
                 min={1}
                 max={1000}
                 placeholder="Enter share count"
+                required
               />
             </Form.Group>
           </div>
@@ -99,6 +101,7 @@ export default function Home() {
                 max={10}
                 name="delay"
                 placeholder="Enter share delay"
+                required
               />
             </Form.Group>
           </div>
@@ -109,6 +112,7 @@ export default function Home() {
                 type="text"
                 name="targetLink"
                 placeholder="Enter target link"
+                required
               />
             </Form.Group>
             <Button
