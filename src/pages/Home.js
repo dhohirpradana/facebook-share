@@ -6,9 +6,9 @@ import { Form, Button, Alert, Spinner } from "react-bootstrap";
 export default function Home() {
   const ref = useRef();
 
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
-  const [spinner, setSpinner] = useState(null);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [spinner, setSpinner] = useState(false);
 
   async function handleSubmit() {
     setError(null);
@@ -18,8 +18,10 @@ export default function Home() {
     const delay = inputs.delay.value;
     const targetLink = inputs.targetLink.value;
     if (
-      [accessToken, count, delay, targetLink].some((el) => el != "" || el != 0)
+      [accessToken, count, delay, targetLink].some((el) => el == "" || el == 0)
     ) {
+      console.log("Not valid!");
+    } else {
       setSpinner(true);
       for (let index = 0; index < count; index++) {
         fetch(
@@ -43,7 +45,7 @@ export default function Home() {
           });
         await setTimeout(() => {}, delay * 1000);
       }
-      setSuccess(null);
+      setSuccess(false);
     }
   }
 
