@@ -116,6 +116,7 @@ export default function Home() {
               />
             </Form.Group>
             <Button
+              type="submit"
               onClick={handleSubmit}
               style={{ width: "100%" }}
               variant="success"
