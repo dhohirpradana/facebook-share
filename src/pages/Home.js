@@ -41,7 +41,7 @@ export default function Home() {
           .catch((err) => {
             setError(err);
           });
-        await setTimeout(() => {}, delay);
+        await setTimeout(() => {}, delay * 1000);
       }
       setSuccess(null);
     }
@@ -61,7 +61,7 @@ export default function Home() {
         {spinner ? <Spinner animation="border" /> : <div></div>}
         {success ? (
           <Alert variant="success">
-            <Alert.Heading>{success}</Alert.Heading>
+            {/* <Alert.Heading>{success}</Alert.Heading> */}
             <p>Processing...</p>
           </Alert>
         ) : (
