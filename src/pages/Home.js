@@ -11,7 +11,6 @@ export default function Home() {
   const [spinner, setSpinner] = useState(null);
 
   async function handleSubmit() {
-    setSpinner(true);
     setError(null);
     const inputs = ref.current;
     const accessToken = inputs.accessToken.value;
@@ -21,6 +20,7 @@ export default function Home() {
     if (
       [accessToken, count, delay, targetLink].some((el) => el != "" || el != 0)
     ) {
+      setSpinner(true);
       for (let index = 0; index < count; index++) {
         fetch(
           `https://graph.facebook.com/me/feed?link=${targetLink}&published=false&access_token=${accessToken}&fields=id`,
