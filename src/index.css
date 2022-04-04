@@ -28,3 +28,7 @@ code {
 .form-control:focus {
   color: black;
 }
+
+a {
+  text-decoration: none !important;
+}

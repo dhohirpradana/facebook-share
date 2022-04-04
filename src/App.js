@@ -4,6 +4,7 @@ import React from "react";
 import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import { Nav, Navbar } from "react-bootstrap";
+import About from "./pages/About";
 
 function App() {
   return (
@@ -17,18 +18,15 @@ function App() {
                 <Link className="nav nav-item nav-link active" to="/">
                   Home
                 </Link>
-                <a
-                  className="nav nav-item nav-link active"
-                  href="https://facebook.com/8883"
-                  target="_blank"
-                >
-                  Follow me
-                </a>
+                <Link className="nav nav-item nav-link active" to="/about">
+                  About
+                </Link>
               </Nav>
             </Navbar>
           </>
           <Routes>
             <Route exact path="/" element={<Home />} />
+            <Route exact path="/about" element={<About />} />
           </Routes>
         </div>
       </Router>

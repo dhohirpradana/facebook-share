@@ -139,7 +139,7 @@ export default function Home() {
           </div>
         </Form>
       </div>
-      <div className="mt-2">* follow saya jika anda bersedia</div>
+      <div className="mt-2">* follow me if you want</div>
     </div>
   );
 }
