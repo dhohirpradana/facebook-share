@@ -1,24 +1,25 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-unused-vars */
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Form, Button, Alert, Spinner } from "react-bootstrap";
 
 export default function Home() {
   const ref = useRef();
-
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [spinner, setSpinner] = useState(false);
+
+  useEffect(() => console.log("mounted"), []);
 
   async function handleSubmit() {
     const delayBos = (ms) => new Promise((res) => setTimeout(res, ms));
     setError(null);
     setSuccess(null);
-    const inputs = ref.current;
-    const accessToken = inputs.accessToken.value;
-    const count = inputs.count.value;
-    const delay = inputs.delay.value;
-    const targetLink = inputs.targetLink.value;
+    let inputs = ref.current;
+    let accessToken = inputs.accessToken.value;
+    let count = inputs.count.value;
+    let delay = inputs.delay.value;
+    let targetLink = inputs.targetLink.value;
     if (
       [accessToken, count, delay, targetLink].some(
         (el) => el == "" || el == 0
@@ -30,29 +31,31 @@ export default function Home() {
     } else {
       setSpinner(true);
       for (let index = 0; index < count; index++) {
-        fetch(
-          `https://graph.facebook.com/me/feed?link=${targetLink}&published=false&access_token=${accessToken}&fields=id`,
-          {
-            method: "POST",
-          }
-        )
-          .then((response) => response.json())
-          .then((json) => {
-            if (json.error) {
-              setSpinner(null);
-              setError(json.error.message);
-              return;
+        try {
+          fetch(
+            `https://graph.facebook.com/me/feed?link=${targetLink}&published=false&access_token=${accessToken}&fields=id`,
+            {
+              method: "POST",
             }
-            if (spinner != null) {
-              setSpinner(null);
-            }
-            // setSuccess(index + 1);
-          })
-          .catch((err) => {
-            setError(err);
-          });
-        await delayBos(1000 * delay);
+          )
+            .then((response) => response.json())
+            .then((json) => {
+              if (json.error) {
+                setSpinner(null);
+                setError(json.error.message);
+                return;
+              }
+              // if (spinner != null) {
+              //   setSpinner(null);
+              // }
+              // setSuccess(index + 1);
+            });
+          await delayBos(1000 * delay);
+        } catch (err) {
+          setError(err);
+        }
       }
+      setSpinner(null);
       setSuccess("babahaha");
     }
   }
@@ -69,13 +72,14 @@ export default function Home() {
           <div></div>
         )}
         {spinner ? <Spinner animation="border" /> : <div></div>}
-        {success && !error ? (
+        {success == "babahaha" ? (
+          //  && !error
           <Alert variant="success">
-            {success == "babahaha" ? (
-              <p>✅ Done</p>
-            ) : (
+            {/* {success == "babahaha" ? ( */}
+            <p>✅ Done</p>
+            {/* ) : (
               <Alert.Heading>{success}</Alert.Heading>
-            )}
+            )} */}
           </Alert>
         ) : (
           <div></div>
