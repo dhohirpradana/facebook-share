@@ -98,20 +98,20 @@ export default function Home() {
           </div>
           <div>
             <Form.Group className="mb-3" controlId="count">
-              <Form.Label>Count</Form.Label>
+              <Form.Label>Many Shares (1 - 1000)</Form.Label>
               <Form.Control
                 type="number"
                 name="count"
                 min={1}
                 max={1000}
-                placeholder="Enter share count"
+                placeholder="Enter many shares"
                 required
               />
             </Form.Group>
           </div>
           <div>
             <Form.Group className="mb-3" controlId="delay">
-              <Form.Label>Delay</Form.Label>
+              <Form.Label>Delay (min : 1)</Form.Label>
               <Form.Control
                 type="number"
                 min={1}
