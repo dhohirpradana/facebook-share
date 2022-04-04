@@ -46,7 +46,7 @@ export default function Home() {
             if (spinner != null) {
               setSpinner(null);
             }
-            setSuccess(index + 1);
+            // setSuccess(index + 1);
           })
           .catch((err) => {
             setError(err);
