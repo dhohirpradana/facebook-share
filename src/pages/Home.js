@@ -18,8 +18,13 @@ export default function Home() {
     const delay = inputs.delay.value;
     const targetLink = inputs.targetLink.value;
     if (
-      [accessToken, count, delay, targetLink].some((el) => el == "" || el == 0)
+      [accessToken, count, delay, targetLink].some(
+        (el) => el == "" || el == 0
+      ) ||
+      count > 1000 ||
+      delay < 1
     ) {
+      setError('Not valid! No debat!')
       console.log("Not valid!");
     } else {
       setSpinner(true);
@@ -119,7 +124,6 @@ export default function Home() {
               />
             </Form.Group>
             <Button
-              type="submit"
               onClick={handleSubmit}
               style={{ width: "100%" }}
               variant="success"
