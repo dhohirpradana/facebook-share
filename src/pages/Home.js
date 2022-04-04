@@ -13,6 +13,7 @@ export default function Home() {
   const delayBos = (ms) => new Promise((res) => setTimeout(res, ms));
 
   async function handleSubmit() {
+    function noF() {}
     setError(null);
     setSuccess(null);
     const inputs = ref.current;
@@ -43,11 +44,10 @@ export default function Home() {
               setSpinner(null);
               setError(json.error.message);
               return;
-            } else {
-              setSpinner(null);
-              setSuccess(index + 1);
-              console.log(index + 1);
             }
+            setSpinner(null);
+            setSuccess(index + 1);
+            console.log(index + 1);
           })
           .catch((err) => {
             setError(err);
@@ -70,7 +70,7 @@ export default function Home() {
           <div></div>
         )}
         {spinner ? <Spinner animation="border" /> : <div></div>}
-        {success ? (
+        {success && !error ? (
           <Alert variant="success">
             {success == "babahaha" ? (
               <p>✅ Done</p>
