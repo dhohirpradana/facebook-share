@@ -10,10 +10,8 @@ export default function Home() {
   const [success, setSuccess] = useState(false);
   const [spinner, setSpinner] = useState(false);
 
-  const delayBos = (ms) => new Promise((res) => setTimeout(res, ms));
-
   async function handleSubmit() {
-    function noF() {}
+    const delayBos = (ms) => new Promise((res) => setTimeout(res, ms));
     setError(null);
     setSuccess(null);
     const inputs = ref.current;
@@ -28,7 +26,7 @@ export default function Home() {
       count > 1000 ||
       delay < 1
     ) {
-      setError("Form not valid! No debat!");
+      setError("Form not valid!");
     } else {
       setSpinner(true);
       for (let index = 0; index < count; index++) {
@@ -45,9 +43,10 @@ export default function Home() {
               setError(json.error.message);
               return;
             }
-            setSpinner(null);
+            if (spinner != null) {
+              setSpinner(null);
+            }
             setSuccess(index + 1);
-            console.log(index + 1);
           })
           .catch((err) => {
             setError(err);
@@ -95,7 +94,7 @@ export default function Home() {
           </div>
           <div>
             <Form.Group className="mb-3" controlId="count">
-              <Form.Label>Jumlah</Form.Label>
+              <Form.Label>Count</Form.Label>
               <Form.Control
                 type="number"
                 name="count"
@@ -121,11 +120,11 @@ export default function Home() {
           </div>
           <div>
             <Form.Group className="mb-3" controlId="target-link">
-              <Form.Label>Target Link</Form.Label>
+              <Form.Label>Url Target</Form.Label>
               <Form.Control
                 type="text"
                 name="targetLink"
-                placeholder="Enter target link"
+                placeholder="Enter url target"
                 required
               />
             </Form.Group>
