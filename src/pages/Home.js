@@ -10,6 +10,8 @@ export default function Home() {
   const [success, setSuccess] = useState(false);
   const [spinner, setSpinner] = useState(false);
 
+  const delayBos = (ms) => new Promise((res) => setTimeout(res, ms));
+
   async function handleSubmit() {
     setError(null);
     const inputs = ref.current;
@@ -24,40 +26,40 @@ export default function Home() {
       count > 1000 ||
       delay < 1
     ) {
-      setError('Not valid! No debat!')
-      console.log("Not valid!");
+      setError("Form not valid! No debat!");
     } else {
       setSpinner(true);
       for (let index = 0; index < count; index++) {
-        await setTimeout(() => {
-          fetch(
-            `https://graph.facebook.com/me/feed?link=${targetLink}&published=false&access_token=${accessToken}&fields=id`,
-            {
-              method: "POST",
-            }
-          )
-            .then((response) => response.json())
-            .then((json) => {
+        fetch(
+          `https://graph.facebook.com/me/feed?link=${targetLink}&published=false&access_token=${accessToken}&fields=id`,
+          {
+            method: "POST",
+          }
+        )
+          .then((response) => response.json())
+          .then((json) => {
+            if (json.error) {
               setSpinner(null);
-              if (json.error) {
-                setError(json.error.message);
-                return;
-              } else {
-                setSuccess(index);
-              }
-            })
-            .catch((err) => {
-              setError(err);
-            });
-        }, delay * 1000);
+              setError(json.error.message);
+              return;
+            } else {
+              setSpinner(null);
+              setSuccess(index + 1);
+              console.log(index + 1);
+            }
+          })
+          .catch((err) => {
+            setError(err);
+          });
+        await delayBos(1000 * delay);
       }
-      setSuccess(false);
+      setSuccess('babahaha');
     }
   }
 
   return (
     <div className="text-light px-5 pt-3">
-      <div className="mx-5 px-4">
+      <div>
         {error ? (
           <Alert variant="danger" onClose={() => setError(null)} dismissible>
             <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
@@ -69,8 +71,11 @@ export default function Home() {
         {spinner ? <Spinner animation="border" /> : <div></div>}
         {success ? (
           <Alert variant="success">
-            {/* <Alert.Heading>{success}</Alert.Heading> */}
-            <p>Processing...</p>
+            {success == 'babahaha' ? (
+              <p>✅ Done</p>
+            ) : (
+              <Alert.Heading>{success}</Alert.Heading>
+            )}
           </Alert>
         ) : (
           <div></div>
