@@ -14,6 +14,7 @@ export default function Home() {
 
   async function handleSubmit() {
     setError(null);
+    setSuccess(null);
     const inputs = ref.current;
     const accessToken = inputs.accessToken.value;
     const count = inputs.count.value;
@@ -53,7 +54,7 @@ export default function Home() {
           });
         await delayBos(1000 * delay);
       }
-      setSuccess('babahaha');
+      setSuccess("babahaha");
     }
   }
 
@@ -71,7 +72,7 @@ export default function Home() {
         {spinner ? <Spinner animation="border" /> : <div></div>}
         {success ? (
           <Alert variant="success">
-            {success == 'babahaha' ? (
+            {success == "babahaha" ? (
               <p>✅ Done</p>
             ) : (
               <Alert.Heading>{success}</Alert.Heading>
@@ -138,6 +139,7 @@ export default function Home() {
           </div>
         </Form>
       </div>
+      <div className="mt-2">* follow saya jika anda bersedia</div>
     </div>
   );
 }
